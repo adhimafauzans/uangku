@@ -3,8 +3,13 @@ import { authenticateToken } from './authMiddleware.js';
 
 export default async function handler(req, res) {
   // CORS configuration
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const origin = req.headers.origin;
+  if (origin) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+  } else {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+  }
   res.setHeader('Access-Control-Allow-Methods', 'GET,DELETE,PATCH,POST,PUT');
   res.setHeader(
     'Access-Control-Allow-Headers',

@@ -6,8 +6,13 @@ const JWT_SECRET = process.env.JWT_SECRET || 'sakukita-secret-fallback-key-12345
 
 export default async function handler(req, res) {
   // Enable CORS
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const origin = req.headers.origin;
+  if (origin) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+  } else {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+  }
   res.setHeader('Access-Control-Allow-Methods', 'GET,DELETE,PATCH,POST,PUT');
   res.setHeader(
     'Access-Control-Allow-Headers',

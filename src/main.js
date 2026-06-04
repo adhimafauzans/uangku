@@ -143,15 +143,12 @@ function showConfirmDialog(title, message, onConfirm) {
 // --- API COMMUNICATIONS ---
 
 async function apiRequest(endpoint, options = {}) {
-  // Determine API base URL dynamically for Capacitor native platform
-  const isNative = !!(
-    (window.Capacitor && window.Capacitor.platform) ||
-    window.location.origin.startsWith('capacitor://') ||
-    (window.location.origin.startsWith('http://localhost') && !window.location.port) ||
-    window.location.origin.startsWith('file://')
-  );
+  // Determine API base URL dynamically: if not running on Vercel production or local Vercel dev, use hosted API.
+  const isVercelProduction = window.location.hostname.endsWith('vercel.app') || window.location.hostname.endsWith('vercel.com');
+  const isLocalVercelDev = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') && 
+                            (window.location.port === '3000' || window.location.port === '3001');
   
-  const baseUrl = isNative ? 'https://sisa-uangku.vercel.app' : '';
+  const baseUrl = (isVercelProduction || isLocalVercelDev) ? '' : 'https://sisa-uangku.vercel.app';
   const targetUrl = endpoint.startsWith('http') ? endpoint : `${baseUrl}${endpoint}`;
 
   // Set auth headers

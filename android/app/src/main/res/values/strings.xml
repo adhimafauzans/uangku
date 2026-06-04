@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">UangKu</string>
+    <string name="title_activity_main">UangKu</string>
+    <string name="package_name">com.uangku.app</string>
+    <string name="custom_url_scheme">com.uangku.app</string>
+</resources>

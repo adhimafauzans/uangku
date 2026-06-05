@@ -25,3 +25,4 @@ dist-ssr
 
 .vercel
 local_db.json
+.env*
